@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>TechStore - Tu Tienda de Tecnología</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    
+    /* Header y navegación */
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 20px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #c3d4f7;
+    }
+    
+    /* Secciones generales */
+    .seccion {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .seccion h2 {
+      color: #2d3748;
+      font-size: 2.2em;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    /* Sección "Acerca de" */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .about-text {
+      font-size: 1.1em;
+      color: #4a5568;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .stat-number {
+      font-size: 2em;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .stat-label {
+      color: #718096;
+      font-size: 0.9em;
+    }
+    
+    /* Cards de productos MEJORADAS */
+    .productos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    .producto-card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .producto-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .producto-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-content {
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+    .card-precio {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    .card-descripcion {
+      color: #4a5568;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+    }
+    
+    /* MEJOR DISEÑO PARA LOS DETALLES */
+    .card-detalles {
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      padding: 0;
+      margin: 15px 0 0 0;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+    .card-detalles.mostrar {
+      max-height: 300px;
+      opacity: 1;
+      padding: 20px;
+    }
+    .card-detalles h4 {
+      color: #2d3748;
+      margin: 0 0 12px 0;
+      font-size: 1.1em;
+    }
+    .card-detalles ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #4a5568;
+    }
+    .card-detalles li {
+      margin-bottom: 6px;
+      font-size: 0.9em;
+    }
+    
+    .btn-ver-detalles {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .btn-ver-detalles:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Sección de contacto */
+    .contacto-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .contacto-info {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .contacto-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+    }
+    .contacto-icon {
+      background: #667eea;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+    
+    /* Footer */
+    footer {
+      background: #2d3748;
+      color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 50px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-content, .contacto-container {
+        grid-template-columns: 1fr;
+      }
+      .productos-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header y Navegación -->
+  <header>
+    <nav>
+      <div class="logo">🔌 TechStore</div>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Sección de Inicio -->
+  <section id="inicio" class="seccion">
+    <div style="text-align: center; padding: 60px 0;">
+      <h1 style="font-size: 3em; color: #2d3748; margin-bottom: 20px;">Bienvenido a TechStore</h1>
+      <p style="font-size: 1.3em; color: #4a5568; max-width: 600px; margin: 0 auto;">
+        Tu destino confiable para la mejor tecnología. Computadoras, accesorios y gadgets de última generación.
+      </p>
+    </div>
+  </section>
+
+  <!-- Sección Nosotros -->
+  <section id="nosotros" class="seccion" style="background: #fff;">
+    <h2>Acerca de TechStore</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <h3>Nuestra Misión</h3>
+        <p>En TechStore nos dedicamos a ofrecer productos tecnológicos de alta calidad a precios accesibles. Creemos que la tecnología debe estar al alcance de todos.</p>
+        
+        <h3>¿Por qué elegirnos?</h3>
+        <ul>
+          <li>✅ Productos garantizados y originales</li>
+          <li>✅ Atención personalizada</li>
+          <li>✅ Envíos rápidos y seguros</li>
+          <li>✅ Soporte técnico especializado</li>
+        </ul>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">2,500+</div>
+          <div class="stat-label">Clientes Satisfechos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Años de Experiencia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Productos Vendidos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Soporte Técnico</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Productos -->
+  <section id="productos" class="seccion">
+    <h2>Nuestros Productos</h2>
+    <div class="productos-container">
+      
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming" />
+        <div class="card-content">
+          <div class="card-title">Laptop Gaming Pro X1</div>
+          <div class="card-precio">$25,999 MXN</div>
+          <div class="card-descripcion">Laptop gaming de alto rendimiento con gráficos RTX y procesador Intel i7 de última generación.</div>
+          <div class="card-detalles">
+            <h4>Especificaciones Técnicas:</h4>
+            <ul>
+              <li><strong>Procesador:</strong> Intel Core i7-12700H</li>
+              <li><strong>Memoria RAM:</strong> 16GB DDR4 3200MHz</li>
+              <li><strong>Almacenamiento:</strong> SSD 1TB NVMe</li>
+              <li><strong>Tarjeta gráfica:</strong> NVIDIA RTX 3060 6GB</li>
+              <li><strong>Pantalla:</strong> 15.6" Full HD 144Hz IPS</li>
+              <li><strong>Garantía:</strong> 2 años internacional</li>
+            </ul>
+          </div>
+          <button class="btn-ver-detalles">Ver Especificaciones</button>
+        </div>
+      </div>
+      <div class="producto-card">
+  <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=500&q=80" alt="Mouse Gaming RGB" />
+  <div class="card-content">
+    <div class="card-title">Mouse Gaming RGB Pro</div>
+    <div class="card-precio">$799 MXN</div>
+    <div class="card-descripcion">Mouse gaming de alta precisión con sensor óptico de 16,000 DPI e iluminación RGB personalizable.</div>
+    <div class="card-detalles">
+      <h4>Características del Mouse:</h4>
+      <ul>
+        <li><strong>Sensor:</strong> Óptico de alta precisión 16,000 DPI</li>
+        <li><strong>Botones:</strong> 6 botones programables</li>
+        <li><strong>Conectividad:</strong> USB con cable trenzado de 1.8m</li>
+        <li><strong>Iluminación:</strong> RGB con 16.7 millones de colores</li>
+        <li><strong>Ergonomía:</strong> Diseño ambidiestro con grip antideslizante</li>
+        <li><strong>Software:</strong> Compatible con software de personalización</li>
+      </ul>
+    </div>
+    <button class="btn-ver-detalles">Ver Especificaciones</button>
+  </div>
+</div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?auto=format&fit=crop&w=500&q=80" alt="Teclado Mecánico" />
+        <div class="card-content">
+          <div class="card-title">Teclado Mecánico RGB</div>
+          <div class="card-precio">$1,899 MXN</div>
+          <div class="card-descripcion">Teclado mecánico premium con switches Cherry MX e iluminación RGB totalmente personalizable.</div>
+          <div class="card-detalles">
+            <h4>Detalles del Teclado:</h4>
+            <ul>
+              <li><strong>Switches:</strong> Cherry MX Blue (táctiles)</li>
+              <li><strong>Iluminación:</strong> RGB por tecla programable</li>
+              <li><strong>Conectividad:</strong> USB-C extraíble</li>
+              <li><strong>Construcción:</strong> Marco de aluminio anodizado</li>
+              <li><strong>Layout:</strong> 104 teclas full-size español</li>
+              <li><strong>Software:</strong> App de personalización incluida</li>
+            </ul>
+          </div>
+          <button class="btn-ver-detalles">Ver Especificaciones</button>
+        </div>
+      </div>
+
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=500&q=80" alt="Auriculares Gaming" />
+        <div class="card-content">
+          <div class="card-title">Auriculares Gaming Pro</div>
+          <div class="card-precio">$1,299 MXN</div>
+          <div class="card-descripcion">Auriculares gaming con sonido envolvente 7.1 y micrófono profesional con cancelación de ruido.</div>
+          <div class="card-detalles">
+            <h4>Audio y Conectividad:</h4>
+            <ul>
+              <li><strong>Audio:</strong> Sonido envolvente virtual 7.1</li>
+              <li><strong>Micrófono:</strong> Cancelación activa de ruido</li>
+              <li><strong>Conectividad:</strong> USB + Jack 3.5mm</li>
+              <li><strong>Compatibilidad:</strong> PC, PS5, Xbox, Nintendo Switch</li>
+              <li><strong>Batería:</strong> 20 horas de uso continuo</li>
+              <li><strong>Comodidad:</strong> Almohadillas memory foam premium</li>
+            </ul>
+          </div>
+          <button class="btn-ver-detalles">Ver Especificaciones</button>
+        </div>
+      </div>
+
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?auto=format&fit=crop&w=500&q=80" alt="Smartphone" />
+        <div class="card-content">
+          <div class="card-title">Smartphone TechMax 128GB</div>
+          <div class="card-precio">$12,999 MXN</div>
+          <div class="card-descripcion">Smartphone flagship con cámara triple de 108MP y procesador de última generación para máximo rendimiento.</div>
+          <div class="card-detalles">
+            <h4>Especificaciones del Móvil:</h4>
+            <ul>
+              <li><strong>Pantalla:</strong> 6.7" AMOLED 120Hz HDR10+</li>
+              <li><strong>Procesador:</strong> Snapdragon 8 Gen 2</li>
+              <li><strong>Almacenamiento:</strong> 128GB UFS 3.1 (expandible)</li>
+              <li><strong>Cámara:</strong> Triple 108MP + 12MP + 5MP</li>
+              <li><strong>Batería:</strong> 5000mAh con carga rápida 67W</li>
+              <li><strong>Sistema:</strong> Android 13 con 3 años de actualizaciones</li>
+            </ul>
+          </div>
+          <button class="btn-ver-detalles">Ver Especificaciones</button>
+        </div>
+      </div>
+
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1606904825846-647eb07f5be2?auto=format&fit=crop&w=500&q=80" alt="Router WiFi" />
+        <div class="card-content">
+          <div class="card-title">Router WiFi 6 Gigabit</div>
+          <div class="card-precio">$2,799 MXN</div>
+          <div class="card-descripcion">Router de alta velocidad con tecnología WiFi 6 que soporta hasta 50 dispositivos simultáneos.</div>
+          <div class="card-detalles">
+            <h4>Características de Red:</h4>
+            <ul>
+              <li><strong>Estándar:</strong> WiFi 6 (802.11ax) dual band</li>
+              <li><strong>Velocidad:</strong> Hasta 1.8 Gbps combinado</li>
+              <li><strong>Cobertura:</strong> Hasta 200m² con 4 antenas</li>
+              <li><strong>Puertos:</strong> 4x Gigabit Ethernet + 1x WAN</li>
+              <li><strong>Seguridad:</strong> WPA3 con firewall avanzado</li>
+              <li><strong>Gestión:</strong> App móvil para configuración fácil</li>
+            </ul>
+          </div>
+          <button class="btn-ver-detalles">Ver Especificaciones</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sección de Contacto -->
+  <section id="contacto" class="seccion" style="background: #fff;">
+    <h2>Contáctanos</h2>
+    <div class="contacto-container">
+      <div class="contacto-info">
+        <h3>Información de Contacto</h3>
+        <div class="contacto-item">
+          <div class="contacto-icon">📍</div>
+          <div>
+            <strong>Dirección:</strong><br>
+            Av. Tecnología 123, Col. Innovación<br>
+            Ramos Arizpe, Coahuila, México
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">📞</div>
+          <div>
+            <strong>Teléfono:</strong><br>
+            +52 844 123 4567
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">📧</div>
+          <div>
+            <strong>Email:</strong><br>
+            info@techstore.mx
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">🕒</div>
+          <div>
+            <strong>Horarios:</strong><br>
+            Lun - Vie: 9:00 AM - 7:00 PM<br>
+            Sáb: 10:00 AM - 6:00 PM
+          </div>
+        </div>
+      </div>
+      <div class="contacto-info">
+        <h3>Síguenos en redes sociales</h3>
+        <div class="contacto-item">
+          <div class="contacto-icon">📘</div>
+          <div>Facebook: @TechStoreMX</div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">📷</div>
+          <div>Instagram: @techstore_mx</div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">🐦</div>
+          <div>Twitter: @TechStoreMX</div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">💬</div>
+          <div>WhatsApp: +52 844 123 4567</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="seccion">
+      <p>&copy; 2025 TechStore. Todos los derechos reservados.</p>
+      <p>Comprometidos con la calidad y la innovación tecnológica.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Seleccionar todos los botones de "Ver Detalles"
+    const botonesDetalles = document.querySelectorAll('.btn-ver-detalles');
+    
+    botonesDetalles.forEach(boton => {
+      boton.addEventListener('click', () => {
+        const detalles = boton.previousElementSibling;
+        
+        // Toggle de la clase 'mostrar' para animación suave
+        if (detalles.classList.contains('mostrar')) {
+          detalles.classList.remove('mostrar');
+          boton.textContent = 'Ver Especificaciones';
+        } else {
+          // Cerrar otros detalles abiertos (opcional)
+          botonesDetalles.forEach(otroBoton => {
+            const otrosDetalles = otroBoton.previousElementSibling;
+            if (otrosDetalles !== detalles && otrosDetalles.classList.contains('mostrar')) {
+              otrosDetalles.classList.remove('mostrar');
+              otroBoton.textContent = 'Ver Especificaciones';
+            }
+          });
+          
+          detalles.classList.add('mostrar');
+          boton.textContent = 'Ocultar Especificaciones';
+        }
+      });
+    });
+
+    // Navegación suave entre secciones
+    const enlacesNav = document.querySelectorAll('.nav-links a');
+    
+    enlacesNav.forEach(enlace => {
+      enlace.addEventListener('click', (e) => {
+        e.preventDefault();
+        const seccionId = enlace.getAttribute('href');
+        const seccion = document.querySelector(seccionId);
+        
+        if (seccion) {
+          seccion.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
